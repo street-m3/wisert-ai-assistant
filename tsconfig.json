@@ -1,6 +1,23 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true
-  }
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "strict": true,
+        "noEmit": true,
+        "module": "esnext",
+        "resolveJsonModule": true,
+        "incremental": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-native",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@components/*": ["./src/components/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@styles/*": ["./src/styles/*"],
+            "@libs/*": ["./src/libs/*"],
+            "@screens/*": ["./src/screens/*"]
+        }
+    }
 }
