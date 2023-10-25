@@ -1,17 +1,31 @@
+import React, { useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Homepage from '@screens/Home';
 import Settings from '@screens/Settings';
 import { registerRootComponent } from 'expo';
-import React from 'react';
+import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
 import { Text, View } from 'react-native';
 import 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomizeDrawer from './components/CustomMenu';
 
 const Drawer = createDrawerNavigator();
 
-const App = () => {
+const App = (): JSX.Element => {
+    useEffect(() => {
+        const prepareResource = async () => {
+            try {
+                await preventAutoHideAsync();
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            } catch (e) {
+                console.error(e);
+            } finally {
+                await hideAsync()
+            }
+        }
+        prepareResource()
+    }, [])
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
