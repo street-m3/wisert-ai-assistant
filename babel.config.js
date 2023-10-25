@@ -4,6 +4,17 @@ module.exports = function (api) {
         presets: ['babel-preset-expo'],
         plugins: [
             [
+                'module:react-native-dotenv',
+                {
+                    moduleName: '@env',
+                    path: '.env.local',
+                    blacklist: null,
+                    whitelist: null,
+                    safe: false,
+                    allowUndefined: true,
+                },
+            ],
+            [
                 'module-resolver',
                 {
                     // ルートフォルダを設定。これにより、絶対パスでのインポートが可能になります。
@@ -12,7 +23,7 @@ module.exports = function (api) {
                     // エイリアスの設定。これにより、指定したキーワードで特定のパスを参照できるようになります。
                     alias: {
                         // 他のエイリアスもここに追加
-                        "@": "./src",
+                        '@': './src',
                         '@components': './src/components',
                         '@assets': './src/assets',
                         '@styles': './src/styles',
