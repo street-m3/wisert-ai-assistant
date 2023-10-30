@@ -4,13 +4,14 @@
         "react-native/react-native": true,
         "node": true
     },
+    "parser": "@typescript-eslint/parser",
     "extends": [
-        "@react-native",
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "prettier"
+        "@react-native", // React Nativeの特定のルールを適用
+        "eslint:recommended", // ESLintによって推奨される一連の基本的なルールを適用
+        "plugin:react/recommended", // Reactのベストプラクティスに関するルールを適用
+        "plugin:import/errors", // インポート宣言に関する一般的な問題を識別
+        "plugin:import/warnings", // インポート宣言に関する一般的な問題を識別
+        "plugin:prettier/recommended" // Prettierと競合する可能性のあるESLintルールを無効
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -21,15 +22,22 @@
     },
     "plugins": ["react", "react-native", "prettier"],
     "rules": {
-        "no-unused-vars": "error",
-        "react-native/no-inline-styles": "error",
+        "no-unused-vars": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "react-native/no-inline-styles": "off",
         "react-native/no-raw-text": "error",
-        "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-        "prettier/prettier": "error"
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+        "prettier/prettier": "error",
+        "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }] ,
+        "react/react-in-jsx-scope": "off",
+        "no-undef": "off"
     },
     "settings": {
         "react": {
             "version": "detect"
+        },
+        "import/resolver": {
+            "typescript": {}
         }
     }
 }
