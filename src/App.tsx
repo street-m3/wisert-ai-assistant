@@ -1,16 +1,37 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Homepage from '@screens/Home';
 import Settings from '@screens/Settings';
 import { registerRootComponent } from 'expo';
 import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
-import { NativeBaseProvider, useColorModeValue } from 'native-base';
+import { ColorMode, NativeBaseProvider, StorageManager, useColorModeValue } from 'native-base';
 import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import CustomizeMenu from './components/CustomMenu';
 import theme from './theme';
 
 const Drawer = createDrawerNavigator();
+
+const colorModeManager: StorageManager = {
+    get: async () => {
+        try {
+            let val = await AsyncStorage.getItem('@color-mode');
+            return val === 'dark' ? 'dark' : 'light';
+        } catch (e) {
+            return 'light';
+        }
+    },
+    set: async (value: ColorMode) => {
+        try {
+            typeof value === 'string'
+                ? await AsyncStorage.setItem('@color-mode', value)
+                : console.warn('Invalid value for @color-mode', value);
+        } catch (e) {
+            console.error(e);
+        }
+    },
+};
 
 const MainNavigator = () => {
     const backgroundColor = useColorModeValue('#FFFFFF', '#000E08');
@@ -67,7 +88,7 @@ const App = (): JSX.Element => {
     }, []);
 
     return (
-        <NativeBaseProvider theme={theme}>
+        <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
             <NavigationContainer>
                 <MainNavigator />
             </NavigationContainer>
