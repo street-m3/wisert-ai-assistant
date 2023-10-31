@@ -4,12 +4,52 @@ import Homepage from '@screens/Home';
 import Settings from '@screens/Settings';
 import { registerRootComponent } from 'expo';
 import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
-import { NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider, useColorModeValue } from 'native-base';
 import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
-import CustomizeDrawer from './components/CustomMenu';
+import CustomizeMenu from './components/CustomMenu';
+import theme from './theme';
 
 const Drawer = createDrawerNavigator();
+
+const MainNavigator = () => {
+    const backgroundColor = useColorModeValue('#FFFFFF', '#000E08');
+
+    return (
+        <Drawer.Navigator
+            initialRouteName='Home'
+            screenOptions={{
+                drawerType: 'front',
+                headerTintColor: '#fff',
+            }}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            drawerContent={(props) => <CustomizeMenu {...props} />}
+        >
+            <Drawer.Screen
+                name='Home'
+                options={{
+                    drawerLabel: 'Wisert Chats',
+                    title: 'Wisert',
+                    headerStyle: {
+                        backgroundColor: backgroundColor,
+                    },
+                }}
+                component={Homepage}
+            />
+            <Drawer.Screen
+                name='Settings'
+                options={{
+                    drawerLabel: 'Settings',
+                    title: 'Settings',
+                    headerStyle: {
+                        backgroundColor: backgroundColor,
+                    },
+                }}
+                component={Settings}
+            />
+        </Drawer.Navigator>
+    );
+};
 
 const App = (): JSX.Element => {
     useEffect(() => {
@@ -27,24 +67,9 @@ const App = (): JSX.Element => {
     }, []);
 
     return (
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={theme}>
             <NavigationContainer>
-                <Drawer.Navigator
-                    initialRouteName="Home"
-                    screenOptions={{ drawerType: 'front' }}
-                    drawerContent={(props) => <CustomizeDrawer {...props} />}
-                >
-                    <Drawer.Screen
-                        name="Home"
-                        options={{ drawerLabel: 'Homepage', title: 'Homepage' }}
-                        component={Homepage}
-                    />
-                    <Drawer.Screen
-                        name="Settings"
-                        options={{ drawerLabel: 'Settings', title: 'Settings' }}
-                        component={Settings}
-                    />
-                </Drawer.Navigator>
+                <MainNavigator />
             </NavigationContainer>
         </NativeBaseProvider>
     );
