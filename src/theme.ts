@@ -5,18 +5,22 @@ const config = {
     initialColorMode: 'light',
 };
 
+// red GraphiteDrawer: '#222628', // Red Graphite - DRW (ライトモードのドロワー背景色)
+// solarizedCode: '#FDF6E3', // Solarized Light - SCD (ライトモードのcodeタグ背景色)
+// highlightCode: '#0F111A', // Highlight Dark - SCD (ダークモードのcodeタグ背景色)
+
 const colors = {
     primary: {
-        50: '#FFFFFF', //bg.light
-        100: '#F2F7FB',
-        200: '#F3F6F6',
-        300: '#CBCBCB',
-        400: '#949497',
-        500: '#797C7B',
-        600: '#27998B',
-        700: '#015653',
-        800: '#121414',
-        900: '#000E08', // bg-dark
+        50: '#FDF6E3', // Solarized Light - BG1 (ライトモードの背景色)
+        100: '#EEE8D5', // Solarized Light - BG2 (ライトモードのセカンダリ背景色)
+        200: '#F0F2F5', // Red Graphite - BG2 (ライトモードのセカンダリ背景色)
+        300: '#586E75', // Solarized Light - TXT (ライトモードのテキスト色)
+        400: '#343434', // Red Graphite - TXT (ライトモードのテキスト色)
+        500: '#015653', // Primary Color (メインカラー)
+        600: '#C1D2DE', // Highlight Dark - TXT (ダークモードのテキスト色)
+        700: '#232324', // Highlight Dark - BG2 (ダークモードのセカンダリ背景色)
+        800: '#212223', // Highlight Dark - DRW (ダークモードのドロワー背景色)
+        900: '#161718', // Highlight Dark - BG1 (ダークモードの背景色)
     },
     danger: {
         100: '#FBD4D1',
@@ -64,6 +68,24 @@ const colors = {
     },
 };
 
-const components = {};
+const components = {
+    Box: {},
+    Button: {},
+    Checkbox: {},
+    FormControl: {},
+    Heading: {},
+    Icon: {},
+    Input: {},
+    Link: {},
+    Popover: {},
+    Radio: {},
+    Select: {},
+    Slider: {},
+    Spinner: {},
+    Switch: {},
+    Textarea: {},
+    Toast: {},
+    Text: {},
+};
 
-export default extendTheme({ config, colors });
+export default extendTheme({ config, colors, components });
