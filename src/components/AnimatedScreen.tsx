@@ -8,7 +8,7 @@ interface Props {
     darkColor?: string;
 }
 
-const AnimatedScreen: React.FC<Props> = ({ children, lightColor = 'primary.50', darkColor = 'primary.900' }) => {
+const AnimatedScreen: React.FC<Props> = ({ children, lightColor = '#FFFFFF', darkColor = 'primary.900' }) => {
     // useTokenを使用して、テーマの色を解決します。
     const [lightBackgroundColor, darkBackgroundColor] = useToken(
         'colors', // トークンの種類（ここでは 'colors'）
