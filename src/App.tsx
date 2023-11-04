@@ -9,6 +9,7 @@ import { ColorMode, NativeBaseProvider, StorageManager, useColorModeValue } from
 import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import CustomizeMenu from './components/CustomMenu';
+import HeaderLogo from './components/HeaderLogo';
 import theme from './theme';
 
 const Drawer = createDrawerNavigator();
@@ -34,14 +35,15 @@ const colorModeManager: StorageManager = {
 };
 
 const MainNavigator = () => {
-    const backgroundColor = useColorModeValue('#FFFFFF', '#000E08');
+    const backgroundColor = useColorModeValue('#FFFFFF', '#161718');
+    const colorTitle = useColorModeValue('#161718', '#FFFFFF');
 
     return (
         <Drawer.Navigator
             initialRouteName='Home'
             screenOptions={{
                 drawerType: 'front',
-                headerTintColor: '#fff',
+                headerTintColor: colorTitle,
             }}
             // eslint-disable-next-line react/no-unstable-nested-components
             drawerContent={(props) => <CustomizeMenu {...props} />}
@@ -51,9 +53,13 @@ const MainNavigator = () => {
                 options={{
                     drawerLabel: 'Wisert Chats',
                     title: 'Wisert',
+                    // eslint-disable-next-line react/no-unstable-nested-components
+                    headerTitle: () => <HeaderLogo />,
                     headerStyle: {
                         backgroundColor: backgroundColor,
                     },
+
+                    headerTitleAlign: 'center',
                 }}
                 component={Homepage}
             />
