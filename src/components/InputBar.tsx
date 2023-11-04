@@ -10,7 +10,7 @@ interface InputProps {
 
 const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage }) => {
     const theme = useTheme();
-    const sendMessageColor = textInput ? theme.colors.primary[50] : theme.colors.primary[200];
+    const sendMessageColor = textInput ? 'white' : theme.colors.primary[400];
 
     return (
         <HStack alignItems='center' space={2}>
@@ -19,8 +19,8 @@ const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage }
                 flexDirection='row'
                 alignItems='center'
                 justifyContent='center'
-                backgroundColor='primary.50' // あるいはプロジェクトのテーマカラー
-                borderRadius='full' // 丸みを帯びたデザイン
+                backgroundColor='#FFFFFF' // あるいはプロジェクトのテーマカラー
+                borderRadius={8} // 丸みを帯びたデザイン
                 _dark={{
                     backgroundColor: 'gray.600', // ダークモードの対応
                 }}
@@ -38,10 +38,10 @@ const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage }
                     borderWidth={0} // 枠線を削除
                     value={textInput}
                     onChangeText={setTextInput}
-                    borderRadius='full' // 入力自体にも丸みを追加
+                    borderRadius={8} // 入力自体にも丸みを追加
                     py={2} // 上下のパディングを追加して、より均等な配置に
                     px={3}
-                    minH={16}
+                    minH={12}
                     multiline={true} // 複数行のテキスト入力を可能にする
                     numberOfLines={1}
                 />
