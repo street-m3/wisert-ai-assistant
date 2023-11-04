@@ -1,16 +1,17 @@
+import AnimatedScreen from '@/components/AnimatedScreen';
+import Container from '@/components/Container';
+import InputBar from '@/components/InputBar';
+import MessageBubble from '@/components/MessageBubble';
+// eslint-disable-next-line import/no-unresolved
 import { OPENAI_API_KEY, OPENAI_API_URL } from '@env';
 import axios from 'axios';
-import { Box, HStack, Input, KeyboardAvoidingView, Button as NBButton, Text as NBText, VStack } from 'native-base';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, Keyboard, Platform, SafeAreaView, Text } from 'react-native';
+import { KeyboardAvoidingView, Text, VStack } from 'native-base';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ActivityIndicator, FlatList, Platform, SafeAreaView } from 'react-native';
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
     content: string;
-}
-
-interface RenderMessageProps {
-    item: Message;
 }
 
 const defaultOptions = {
@@ -22,7 +23,6 @@ const defaultOptions = {
 const Homepage = (): JSX.Element => {
     const flatListRef = useRef<FlatList>(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [keyboardOffset, setKeyboardOffset] = useState(0);
     const [textInput, setTextInput] = useState('');
     const [chatHistories, setChatHistories] = useState<Message[]>([
         {
@@ -36,22 +36,6 @@ const Homepage = (): JSX.Element => {
             flatListRef.current.scrollToEnd({ animated: true });
         }
     }, [chatHistories]);
-
-    useEffect(() => {
-        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
-            setKeyboardOffset(e.endCoordinates.height);
-        });
-        const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (e) => {
-            setKeyboardOffset(0);
-        });
-
-        return () => {
-            keyboardDidShowListener.remove();
-            keyboardDidHideListener.remove();
-        };
-    }, []);
-
-    // const HeaderHeight =
 
     const sendMessage = async () => {
         if (textInput.trim() === '') {
@@ -145,64 +129,45 @@ const Homepage = (): JSX.Element => {
         }
     };
 
-    const renderMessage = useCallback(
-        ({ item }: RenderMessageProps) => (
-            <Box
-                alignSelf={item.role === 'user' ? 'flex-end' : 'flex-start'}
-                p={2}
-                rounded="md"
-                mb={2}
-                maxWidth="75%"
-                backgroundColor={item.role === 'user' ? '#E1F5FE' : '#B2DFDB'}
-            >
-                <NBText fontSize="md">{item.content}</NBText>
-            </Box>
-        ),
-        []
-    );
-
     const messageList = useMemo(
         () => (
             <FlatList
                 data={chatHistories}
-                renderItem={renderMessage}
+                renderItem={({ item }) => <MessageBubble item={item} />}
                 keyExtractor={(_, index) => index.toString()}
                 style={{ flex: 1 }}
+                contentContainerStyle={{
+                    paddingTop: 28, // 上部に余白を設定
+                    paddingBottom: 32, // 下部に余白を設定
+                }}
             />
         ),
-        [chatHistories, setChatHistories]
+        [chatHistories]
     );
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                style={{ flex: 1 }}
-                keyboardVerticalOffset={80}
-            >
-                {messageList}
-                {/* {isLoaded && <NBText>Waiting...</NBText>} */}
-                {isLoaded && (
-                    <Text>
-                        <ActivityIndicator size="small" color="#000" />{' '}
-                    </Text>
-                )}
-                <VStack space={2} px={4} mb={4}>
-                    <HStack>
-                        <Input
-                            w="80%"
-                            mx={3}
-                            value={textInput}
-                            onChangeText={setTextInput}
-                            placeholder="Type your message here..."
-                        />
-                        <NBButton onPress={sendMessage} px={5}>
-                            <NBText>Send</NBText>
-                        </NBButton>
-                    </HStack>
-                </VStack>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+        <AnimatedScreen>
+            <SafeAreaView style={{ flex: 1 }}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                    style={{ flex: 1 }}
+                    keyboardVerticalOffset={80}
+                >
+                    <Container>
+                        {messageList}
+                        {/* {isLoaded && <Text>Waiting...</Text>} */}
+                        {isLoaded && (
+                            <Text>
+                                <ActivityIndicator size='small' color='#000' />
+                            </Text>
+                        )}
+                        <VStack space={2} mb={4} justifyContent='center'>
+                            <InputBar textInput={textInput} setTextInput={setTextInput} sendMessage={sendMessage} />
+                        </VStack>
+                    </Container>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
+        </AnimatedScreen>
     );
 };
 
