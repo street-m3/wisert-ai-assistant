@@ -1,7 +1,17 @@
-import { Image } from 'react-native';
+import { Image, ImageStyle } from 'react-native';
 
-const HeaderLogo = (): JSX.Element => {
-    return <Image source={require('@/assets/logo.png')} style={{ width: 36, height: 36 }} resizeMode='contain' />;
+interface Props {
+    styled?: ImageStyle;
+}
+
+const HeaderLogo = ({ styled }: Props): JSX.Element => {
+    return (
+        <Image
+            source={require('@/assets/logo.png')}
+            style={[{ width: 34, height: 34, alignSelf: 'center', position: 'relative', top: -2 }, styled]}
+            resizeMode='contain'
+        />
+    );
 };
 
 export default HeaderLogo;
