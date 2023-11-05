@@ -2,21 +2,22 @@ import AnimatedScreen from '@/components/AnimatedScreen';
 import Container from '@/components/Container';
 import InputBar from '@/components/InputBar';
 import MessageBubble from '@/components/MessageBubble';
+import Greeting from '@/libs/greeting';
 // eslint-disable-next-line import/no-unresolved
 import { OPENAI_API_KEY, OPENAI_API_URL } from '@env';
 import axios from 'axios';
-import { KeyboardAvoidingView, Text, VStack } from 'native-base';
+import { KeyboardAvoidingView, VStack } from 'native-base';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, Platform, SafeAreaView } from 'react-native';
+import { FlatList, Platform, SafeAreaView } from 'react-native';
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
     content: string;
 }
 
+const nowDateMessage = Greeting();
 const defaultOptions = {
-    prepareText:
-        'こんにちは、私は「Wisert」です。ビジネスの疑問や課題について、知識を基にサポートいたします。何か質問がありますか？',
+    prepareText: `${nowDateMessage}、私は「Wisert」です。ビジネスの疑問や課題について、知識を基にサポートいたします。何か質問がありますか？`,
     maxRecentMessages: 5,
 };
 
@@ -132,6 +133,7 @@ const Homepage = (): JSX.Element => {
     const messageList = useMemo(
         () => (
             <FlatList
+                ref={flatListRef}
                 data={chatHistories}
                 renderItem={({ item }) => <MessageBubble item={item} />}
                 keyExtractor={(_, index) => index.toString()}
@@ -155,14 +157,13 @@ const Homepage = (): JSX.Element => {
                 >
                     <Container>
                         {messageList}
-                        {/* {isLoaded && <Text>Waiting...</Text>} */}
-                        {isLoaded && (
-                            <Text>
-                                <ActivityIndicator size='small' color='#000' />
-                            </Text>
-                        )}
                         <VStack space={2} mb={4} justifyContent='center'>
-                            <InputBar textInput={textInput} setTextInput={setTextInput} sendMessage={sendMessage} />
+                            <InputBar
+                                textInput={textInput}
+                                setTextInput={setTextInput}
+                                sendMessage={sendMessage}
+                                isLoading={isLoaded}
+                            />
                         </VStack>
                     </Container>
                 </KeyboardAvoidingView>
