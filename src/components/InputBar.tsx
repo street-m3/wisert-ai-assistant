@@ -1,16 +1,18 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { Box, HStack, IconButton, Input, useTheme } from 'native-base';
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
 
 interface InputProps {
     textInput: string;
     setTextInput: (text: string) => void;
     sendMessage: () => void;
+    isLoading?: boolean;
 }
 
-const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage }) => {
+const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage, isLoading }) => {
     const theme = useTheme();
-    const sendMessageColor = textInput ? 'white' : theme.colors.primary[400];
+    const sendMessageColor = textInput ? theme.colors.primary[400] : theme.colors.primary[200];
 
     return (
         <HStack alignItems='center' space={2}>
@@ -50,21 +52,20 @@ const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage }
                 w={12}
                 h={12}
                 icon={
-                    <Ionicons
-                        name='send'
-                        size={24}
-                        color={sendMessageColor}
-                        style={{ transform: [{ rotate: '-40deg' }, { translateY: 0 }, { translateX: 3 }] }}
-                    />
+                    isLoading ? (
+                        <ActivityIndicator size='small' color='#000' />
+                    ) : (
+                        <Feather name='arrow-up' size={28} color={sendMessageColor} />
+                    )
                 } // アイコンボタンを使用
                 onPress={sendMessage}
                 borderRadius={100}
                 bg='primary.600'
                 _pressed={{
-                    backgroundColor: 'transparent', // プレス時の背景色を変更
+                    opacity: 0.8, // プレス時の背景色を変更
                 }}
                 _hover={{
-                    backgroundColor: 'transparent', // ホバー時の背景色を変更
+                    opacity: 0.8, // ホバー時の背景色を変更
                 }}
             />
         </HStack>
