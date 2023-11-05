@@ -10,9 +10,9 @@ const ThemeToggle = (): JSX.Element => {
 
     return (
         <HStack space={2} alignItems='center'>
-            <Text>Dark</Text>
-            <Switch isChecked={colorMode === 'light'} size='md' onToggle={handleToggle} />
             <Text>Light</Text>
+            <Switch isChecked={colorMode === 'dark'} size='md' onToggle={handleToggle} />
+            <Text>Dark</Text>
         </HStack>
     );
 };
