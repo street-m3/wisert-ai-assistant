@@ -1,20 +1,23 @@
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
-import { Text, View } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList, DrawerContentComponentProps } from '@react-navigation/drawer';
+import { Box, Center, VStack } from 'native-base';
+import { Platform } from 'react-native';
+import AnimatedScreen from './AnimatedScreen';
+import ThemeToggle from './ThemeToggle';
 
-const CustomizeMenu = (props: any): JSX.Element => {
+const CustomizeMenu = (props: DrawerContentComponentProps): JSX.Element => {
     return (
-        <DrawerContentScrollView {...props}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Custom Header</Text>
-            </View>
-            <DrawerItemList {...props} />
-            {/* Add additional custom items */}
-            <DrawerItem label="Help" onPress={() => console.log('Help pressed')} />
-            {/* You can also add other custom components and buttons here */}
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Custom Drawer Footer</Text>
-            </View>
-        </DrawerContentScrollView>
+        <AnimatedScreen>
+            <DrawerContentScrollView {...props}>
+                <VStack space={3} my={4}>
+                    <DrawerItemList {...props} />
+                </VStack>
+            </DrawerContentScrollView>
+            <Box>
+                <Center py={Platform.OS === 'ios' ? 12 : 6}>
+                    <ThemeToggle />
+                </Center>
+            </Box>
+        </AnimatedScreen>
     );
 };
 
