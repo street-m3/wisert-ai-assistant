@@ -1,5 +1,7 @@
 # Hello Wisert!👋
 
+Check out the live demo on [![Expo Go](./docs/expo-logo.svg)](https://expo.dev/@street-m3/wisert-ai-assistant)
+
 ## 🌟 Introduction
 
 ご覧いただきありがとうございます。
