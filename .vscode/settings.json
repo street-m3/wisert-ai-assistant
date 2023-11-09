@@ -5,5 +5,6 @@
         "source.organizeImports": true
     },
     "prettier.configPath": ".prettierrc.json",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "workbench.colorTheme": "Community Material Theme Ocean High Contrast",
 }

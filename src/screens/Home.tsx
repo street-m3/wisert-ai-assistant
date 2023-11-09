@@ -33,6 +33,10 @@ const Homepage = (): JSX.Element => {
     ]);
 
     useEffect(() => {
+        //
+    });
+
+    useEffect(() => {
         if (flatListRef.current) {
             flatListRef.current.scrollToEnd({ animated: true });
         }

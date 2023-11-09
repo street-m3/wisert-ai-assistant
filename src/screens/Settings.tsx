@@ -1,25 +1,27 @@
 import AnimatedScreen from '@/components/AnimatedScreen';
+import { Box, Button, useToast } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-    viewContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    viewText: {
-        fontSize: 24,
-        textAlign: 'center',
-    },
-});
+import { SafeAreaView } from 'react-native';
 
 const Settings = (): JSX.Element => {
+    const toast = useToast();
+
+    const showToast = () => {
+        toast.show({
+            title: 'Limit reached',
+            description: 'You can only ask 3 questions per day.',
+            duration: 4000, // ここでは4秒間表示
+            placement: 'top', // top または bottom
+        });
+    };
+
     return (
         <AnimatedScreen>
-            <View style={styles.viewContainer}>
-                <Text style={styles.viewText}>Settings</Text>
-            </View>
+            <SafeAreaView style={{ flex: 1 }}>
+                <Box flex={1} justifyContent='center' alignItems='center'>
+                    <Button onPress={showToast} />
+                </Box>
+            </SafeAreaView>
         </AnimatedScreen>
     );
 };

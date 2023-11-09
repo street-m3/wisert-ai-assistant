@@ -1,6 +1,6 @@
+import Prompts from '@/screens/Prompts';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Homepage from '@screens/Home';
-import Settings from '@screens/Settings';
 import { useColorModeValue } from 'native-base';
 import React from 'react';
 import CustomizeMenu from './CustomMenu';
@@ -41,15 +41,15 @@ const MainNavigator = () => {
                 component={Homepage}
             />
             <Drawer.Screen
-                name='Settings'
+                name='Prompts'
                 options={{
-                    drawerLabel: 'Settings',
-                    title: 'Settings',
+                    drawerLabel: 'Prompts',
+                    title: 'Prompts',
                     headerStyle: {
                         backgroundColor: backgroundColor,
                     },
                 }}
-                component={Settings}
+                component={Prompts}
             />
         </Drawer.Navigator>
     );
