@@ -5,6 +5,7 @@
     "scheme": "wisert-ai-assistant-app",
     "version": "1.0.0",
     "orientation": "portrait",
+    "privacy": "public",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
