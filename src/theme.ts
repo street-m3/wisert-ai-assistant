@@ -68,24 +68,4 @@ const colors = {
     },
 };
 
-const components = {
-    Box: {},
-    Button: {},
-    Checkbox: {},
-    FormControl: {},
-    Heading: {},
-    Icon: {},
-    Input: {},
-    Link: {},
-    Popover: {},
-    Radio: {},
-    Select: {},
-    Slider: {},
-    Spinner: {},
-    Switch: {},
-    Textarea: {},
-    Toast: {},
-    Text: {},
-};
-
-export default extendTheme({ config, colors, components });
+export default extendTheme({ config, colors });

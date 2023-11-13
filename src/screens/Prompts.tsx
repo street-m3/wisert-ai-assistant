@@ -1,16 +1,23 @@
+import promptData from '@/assets/prompts.json';
 import AnimatedScreen from '@/components/AnimatedScreen';
 import { Feather } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
-import { Box, HStack, IconButton, Text, VStack, useToast } from 'native-base';
-import React, { useState } from 'react';
+import { Box, HStack, IconButton, Text, VStack, useColorMode, useTheme, useToast } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 
 const Prompts = (): JSX.Element => {
     const toast = useToast();
-    const [promptText, setPromptText] = useState('Example prompt text that can be copied');
+    const [prompts, setPrompts] = useState<string[]>([]);
+    const theme = useTheme();
+    const { colorMode } = useColorMode();
 
-    const copyToClipBoard = () => {
-        Clipboard.setStringAsync(promptText as string);
+    useEffect(() => {
+        setPrompts(promptData);
+    }, []);
+
+    const copyToClipBoard = (prompt: string) => {
+        Clipboard.setStringAsync(prompt);
         showToast('Copied to clipboard');
     };
 
@@ -25,16 +32,30 @@ const Prompts = (): JSX.Element => {
     return (
         <AnimatedScreen>
             <SafeAreaView style={{ flex: 1 }}>
-                <Box flex={1} justifyContent='center' alignItems='center' p={5}>
+                <Box flex={1} alignItems='center' pl={4} pr={4} pt={8}>
+                    <Text fontSize='2xl' alignSelf='flex-start' mb={5} bold pl={1}>
+                        ⭐️よく使うプロンプト
+                    </Text>
                     <VStack space={4} alignItems='center' w='100%'>
-                        <Box borderWidth={1} borderColor='coolGray.300' borderRadius='md' p={3} w='100%'>
-                            <HStack alignItems='center' justifyContent='center'>
-                                <Text color='coolGray.600' flexShrink={1} size={24}>
-                                    {promptText}
-                                </Text>
-                                <IconButton icon={<Feather name='copy' size={24} />} onPress={copyToClipBoard} />
-                            </HStack>
-                        </Box>
+                        {prompts.map((prompt, index) => (
+                            <Box key={index} borderWidth={1} borderRadius='md' p={1} w='100%'>
+                                <HStack height={12} alignItems='center' justifyContent='space-between' space={2} px={2}>
+                                    <Text alignSelf='center' fontSize='md'>
+                                        {prompt}
+                                    </Text>
+                                    <IconButton
+                                        icon={
+                                            <Feather
+                                                name='copy'
+                                                color={colorMode === 'dark' ? 'white' : theme.colors.primary[900]}
+                                                size={18}
+                                            />
+                                        }
+                                        onPress={() => copyToClipBoard(prompt)}
+                                    />
+                                </HStack>
+                            </Box>
+                        ))}
                     </VStack>
                 </Box>
             </SafeAreaView>
