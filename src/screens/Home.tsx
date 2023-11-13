@@ -157,7 +157,7 @@ const Homepage = (): JSX.Element => {
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                     style={{ flex: 1 }}
-                    keyboardVerticalOffset={80}
+                    keyboardVerticalOffset={88}
                 >
                     <Container>
                         {messageList}
