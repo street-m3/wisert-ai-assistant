@@ -21,8 +21,8 @@ const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage, 
                 flexDirection='row'
                 alignItems='center'
                 justifyContent='center'
-                backgroundColor='#FFFFFF' // あるいはプロジェクトのテーマカラー
-                borderRadius={8} // 丸みを帯びたデザイン
+                backgroundColor='transparent'
+                borderRadius={8}
                 _dark={{
                     backgroundColor: 'gray.600', // ダークモードの対応
                 }}
@@ -60,7 +60,7 @@ const InputBar: React.FC<InputProps> = ({ textInput, setTextInput, sendMessage, 
                 } // アイコンボタンを使用
                 onPress={sendMessage}
                 borderRadius={100}
-                bg='primary.600'
+                bg={theme.colors.primary[600]}
                 _pressed={{
                     opacity: 0.8, // プレス時の背景色を変更
                 }}
