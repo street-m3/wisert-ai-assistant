@@ -40,7 +40,7 @@ const Prompts = (): JSX.Element => {
                         {prompts.map((prompt, index) => (
                             <Box key={index} borderWidth={1} borderRadius='md' p={1} w='100%'>
                                 <HStack height={12} alignItems='center' justifyContent='space-between' space={2} px={2}>
-                                    <Text alignSelf='center' fontSize='md'>
+                                    <Text alignSelf='center' fontSize='sm'>
                                         {prompt}
                                     </Text>
                                     <IconButton
