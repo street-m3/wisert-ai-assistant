@@ -1,5 +1,7 @@
 # Hello Wisert!👋
 
+![Wisert](./docs/wisert.jpg)
+
 Check out the live demo on [![Expo Go](./docs/expo-logo.svg)](https://expo.dev/@street-m3/wisert-ai-assistant)
 
 ## 🌟 Introduction
@@ -115,7 +117,7 @@ Wisertは今後、以下の機能追加やタスクを計画しています。
 -   **音声入力:** ユーザーが話すことでコマンドを入力できる機能。
 -   **Expo Router利用:** よりナビゲーションをスムーズにするためExpo routerを活用する。
 -   **API経由での操作停止:** APIを介してアプリの応答を一時的に停止する機能。
--   **DALL-Eによる画像生成:** ユーザーの要望に基づく画像をDALL-E 2を使って生成する。
+-   **DALL-Eによる画像生成:** ユーザーの要望に基づく画像をDALL-E 3を使って生成する。
 -   **App Store公開:** 試験的にアプリをApp Storeで公開する。
 -   **GPT-3 Turbo課金プロンプト:** GPT-3 turboの使用回数が一定数を超えた場合に課金を促すプロンプトの表示。
 -   **企業向け公開オプション:** 企業が社内でのみ利用するための専用オプション。
